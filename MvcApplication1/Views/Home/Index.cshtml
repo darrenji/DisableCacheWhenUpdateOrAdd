@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MvcApplication1.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    table td {
+        border-collapse: collapse;
+        border: solid 1px black;
+    }
+
+    
+</style>
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <th>编号</th>
+        <th>车型</th>
+        <th>价格</th>
+        <th></th>
+    </tr>
+    @foreach (var vehicle in Model)
+    {
+        <tr>
+            <td>@vehicle.Id.ToString()</td>
+            <td>@vehicle.Name</td>
+            <td>@string.Format("{0:c}",vehicle.Price)</td>
+            <td>
+            @Html.ActionLink("编辑", "Edit", new { id=vehicle.Id }) 
+        </td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="使缓存失效重新获取数据库数据" id="InvalidButton" name="InvalidButton"/>
+}
+
+<p>
+    @Html.ActionLink("创建", "Create")
+</p>
